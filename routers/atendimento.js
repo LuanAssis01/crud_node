@@ -1,29 +1,30 @@
 import { Router } from "express"
+import atendimentoController from "../controllers/atendimentoController.js"
 
 const router = Router()
 
 //get
 router.get("/atendimentos/", (req, res) => {
-    res.send("Listando todos os atendimentos..")
+    res.send(atendimentoController.buscar())
 })
 
 //post
 router.post("/atendimentos/", (req, res) => {
-    res.send("Criando novo atendimento")
+    res.send(atendimentoController.criar())
 })
 
 //put
 router.put("/atendimento/:id", (req, res) => {
     const { id } = req.params
 
-    res.send(`Atualizando atendimento ${id}`)
+    res.send(atendimentoController.alterar(id))
 })
 
 //delete
 router.delete("/atendimento/:id", (req, res) => {
     const { id } = req.params
 
-    res.send(`Apagando atendimento ${id}`)
+    res.send(atendimentoController.apagar(id))
 })
 
 export default router
