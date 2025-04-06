@@ -1,18 +1,20 @@
+import atendimentoModel from "../models/atendimentoModel.js"
+
 class AtendimentoController{
-    buscar(){
-        return "Buscando atendimentos..."
+    listar(){
+        return atendimentoModel.listar()
     }
 
-    criar(){
-        return "Criando atendimento..."
+    criar(body){
+        return atendimentoModel.criar(body)
     }
 
-    alterar(id){
-        return `Alterando atendimento ${id}...`
+    atualizar(body, id){
+        return atendimentoModel.atualizar(body, id)
     }
 
     apagar(id){
-        return `Apagando atendimento ${id}...`
+        return atendimentoModel.apagar(id)
     }
 
 }

@@ -7,9 +7,11 @@ import tabela from "./infraestrutura/tabela.js"
 const app = express()
 const port = process.env.PORT || 3000
 
+
+router(app, express)
+
 tabela.init(conn)
 
-router(app)
 
 app.listen(port, (error) => {
     if(error){

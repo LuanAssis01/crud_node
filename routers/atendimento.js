@@ -5,26 +5,34 @@ const router = Router()
 
 //get
 router.get("/atendimentos/", (req, res) => {
-    res.send(atendimentoController.buscar())
+    atendimentoController.listar()
+        .then((atendimento) => res.status(200).json(atendimento))
+        .catch((error) => res.status(400).json(error.message))
 })
 
 //post
 router.post("/atendimentos/", (req, res) => {
-    res.send(atendimentoController.criar())
+    atendimentoController.criar(req.body)
+        .then((atendimento) => res.status(201).json(atendimento))
+        .catch((error) => res.status(400).json(error.message))
 })
 
 //put
 router.put("/atendimento/:id", (req, res) => {
     const { id } = req.params
 
-    res.send(atendimentoController.alterar(id))
+    atendimentoController.atualizar(req.body, id)
+    .then((atendimento) => res.status(202).json(atendimento))
+    .catch((error) => res.status(405).json(error.message))
 })
 
 //delete
 router.delete("/atendimento/:id", (req, res) => {
     const { id } = req.params
-
-    res.send(atendimentoController.apagar(id))
+    
+    atendimentoController.apagar(id)
+    .then((atendimento) => res.status(202).json(atendimento))
+    .catch((error) => res.status(405).json(error.message))
 })
 
 export default router
