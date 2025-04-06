@@ -1,4 +1,4 @@
-import atendimento from "./atendimento.js"
+import atendimento from "./atendimentoRouter.js"
 
 export default (app, express) => {
     app.use(express.json())

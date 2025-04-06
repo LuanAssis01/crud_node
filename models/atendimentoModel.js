@@ -1,64 +1,36 @@
 import conn from "../infraestrutura/conexao.js"
 
 class AtendimentoModel{
-    listar(){
-        const sql = "SELECT * FROM atendimento"
 
+    executaQuery(sql, params = ""){
         return new Promise((resolve, reject) => {
-            conn.query(sql, {}, (error, response) => {
+            conn.query(sql, params, (error, response) => {
                 if(error){
-                    console.error(`Deu merda na listagem\n`)
-                    reject(error)
+                    return reject(error.message)
                 }
-                console.log(`Deu bom a listagem\n`)
-                resolve(response)
+                return resolve(response)
             })
         })
+    }
+
+    listar(){
+        const sql = "SELECT * FROM atendimento"
+        return this.executaQuery(sql)
     }
 
     criar(atendimento){
         const sql = `INSERT INTO atendimento SET ?`
-
-        return new Promise((resolve, reject) => {
-            conn.query(sql, atendimento, (error, response) => {
-                if(error){
-                    console.error(`Deu merda na listagem\n`)
-                    reject(error)
-                }
-                console.log(`Deu bom a listagem\n`)
-                resolve(response)
-            })
-        })
+        return this.executaQuery(sql, atendimento)
     }
 
     atualizar(atendimento, id){
         const sql = `UPDATE atendimento SET ? WHERE id = ?`
-
-        return new Promise((resolve, reject) => {
-            conn.query(sql, [atendimento, id], (error, response) => {
-                if(error){
-                    console.error(`Deu merda na listagem\n`)
-                    reject(error)
-                }
-                console.log(`Deu bom a listagem\n`)
-                resolve(response)
-            })
-        })
+        return this.executaQuery(sql, [atendimento, id])
     }
 
     apagar(id){
         const sql = `DELETE FROM atendimento WHERE id = ?`
-
-        return new Promise((resolve, reject) => {
-            conn.query(sql, id, (error, response) => {
-                if(error){
-                    console.error(`Deu merda na listagem\n`)
-                    reject(error)
-                }
-                console.log(`Deu bom a listagem\n`)
-                resolve(response)
-            })
-        })
+        return this.executaQuery(sql, [id])
     }
 }
 
